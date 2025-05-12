@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>POS Sales Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+/* General Body and Layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #6d6a6a;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #a79494;
+  box-shadow: 0 2px 10px rgba(108, 106, 106, 0.1);
+  border-radius: 8px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Label and Select Box Styles */
+label {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+select, input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #433e3e;
+  font-size: 1em;
+}
+
+/* Button Style */
+button {
+  background-color: #121212;
+  color: rgb(173, 158, 158);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2em;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #313231;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #595757;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #8c8989;
+  color: #333;
+  font-size: 1.1em;
+}
+
+td {
+  background-color: #777474;
+  color: #333;
+}
+
+tr:nth-child(even) td {
+  background-color: #8f7272;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+
+  table {
+    font-size: 0.9em;
+  }
+  
+  button {
+    font-size: 1em;
+  }
+}
+</style>
+<body>
+  <div class="container">
+    <h1>Sales by Employee</h1>
+    
+    <label for="employeeSelect">Select Employee:</label>
+    <select id="employeeSelect">
+      <option value="1">MOABI THABO</option>
+      <option value="2">TSHEPO LEBAKAE</option>
+      <option value="3">THUTO SEALELA</option>
+      <option value="4">MOHLAOLI TSEPO</option>
+      <option value="5">NEO LUNA</option>
+      <option value="6">SEBOTA NOKUPHEOE</option>
+      <option value="7">LINDIWE MOKETE</option>
+      <option value="8">BOITUMELO MOSEBO</option>
+      <option value="9">RALEJOE NEO</option>
+      <option value="10">LEHLOHONOLO LEKAKA</option>
+      <option value="11">RETHABILE PHEPHETHO</option>
+      <option value="12">TUMELO MASIMONG</option>
+      <option value="13">LINEO PHEKO</option>
+      <option value="14">KOU MAKHA</option>
+      <option value="15">KATLEHO LESALA</option>
+    </select>
+
+    <button onclick="fetchEmployeeSales()">Get Sales Report</button>
+
+    <table id="salesTable">
+      <thead>
+        <tr>
+          <th>Employee Name</th>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Sale Item</th>
+          <th>Total Sales</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Results will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    async function fetchEmployeeSales() {
+      const empId = document.getElementById('employeeSelect').value;
+
+      // Simulated sales data including Sale Items
+      const employeeSalesData = {
+        "1": { employee_name: "MOABI THABO", customer: "TUMO KOLOI", product: "All-Season Tyre", saleItem: "Tyre 1, Tyre 2", total_sales: 120, total_revenue: 4500.00 },
+        "2": { employee_name: "TSHEPO LEBAKAE", customer: "MOABI LERENG", product: "Synthetic Oil", saleItem: "Oil 1", total_sales: 85, total_revenue: 3200.00 },
+        "3": { employee_name: "THUTO SEALELA", customer: "TSHEPANG MAKHOANA", product: "Brake Pads", saleItem: "Pads 1, Pads 2", total_sales: 150, total_revenue: 5700.00 },
+        "4": { employee_name: "MOHLAOLI TSEPO", customer: "KOETLE NTHABELENG", product: "Spark Plugs", saleItem: "Spark Plug 1", total_sales: 110, total_revenue: 4300.00 },
+        "5": { employee_name: "NEO LUNA", customer: "MOHLAOLI TSHEPO", product: "Windshield Wipers", saleItem: "Wiper 1", total_sales: 60, total_revenue: 2200.00 },
+        "6": { employee_name: "SEBOTA NOKUPHEOE", customer: "LEBOTO TSHEPO", product: "Car Battery", saleItem: "Battery 1", total_sales: 100, total_revenue: 3800.00 },
+        "7": { employee_name: "LINDIWE MOKETE", customer: "NTSANE MOHAPI", product: "Fuel Filter", saleItem: "Filter 1", total_sales: 80, total_revenue: 3000.00 },
+        "8": { employee_name: "BOITUMELO MOSEBO", customer: "LIHOTETSO MASEKA", product: "Transmission Fluid", saleItem: "Fluid 1", total_sales: 95, total_revenue: 3600.00 },
+        "9": { employee_name: "RALEJOE NEO", customer: "BOHLOKOA LECHE", product: "Engine Oil Filter", saleItem: "Oil Filter 1", total_sales: 120, total_revenue: 4600.00 },
+        "10": { employee_name: "LEHLOHONOLO LEKAKA", customer: "BOITHABISO RASUTHA", product: "Exhaust Pipe", saleItem: "Pipe 1", total_sales: 130, total_revenue: 4900.00 },
+        "11": { employee_name: "RETHABILE PHEPHETHO", customer: "MOTSAMAI RALEJOE", product: "Air Filter", saleItem: "Air Filter 1", total_sales: 140, total_revenue: 5300.00 },
+        "12": { employee_name: "TUMELO MASIMONG", customer: "MATSHELISO MOLEFI", product: "Tire Pressure Gauge", saleItem: "Gauge 1", total_sales: 105, total_revenue: 4000.00 },
+        "13": { employee_name: "LINEO PHEKO", customer: "THOLANG LEKOATSA", product: "Battery Charger", saleItem: "Charger 1", total_sales: 115, total_revenue: 4300.00 },
+        "14": { employee_name: "KOU MAKHA", customer: "KANANELO MAHALE", product: "Tire Cleaner", saleItem: "Cleaner 1", total_sales: 90, total_revenue: 3400.00 },
+        "15": { employee_name: "KATLEHO LESALA", customer: "KAMOHELO MAKHOANA", product: "LED Headlights", saleItem: "Headlight 1", total_sales: 110, total_revenue: 4200.00 }
+      };
+
+      // Fetch the selected employee's data
+      const data = employeeSalesData[empId];
+
+      // Populate the table with the fetched data
+      const tbody = document.querySelector("#salesTable tbody");
+      tbody.innerHTML = `
+        <tr>
+          <td>${data.employee_name}</td>
+          <td>${data.customer}</td>
+          <td>${data.product}</td>
+          <td>${data.saleItem}</td>
+          <td>${data.total_sales}</td>
+          <td>R ${data.total_revenue.toFixed(2)}</td>
+        </tr>
+      `;
+    }
+  </script>
+</body>
+</html>
